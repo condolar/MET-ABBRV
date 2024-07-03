@@ -1,0 +1,117 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #eceff1;
+}
+
+.quiz-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    margin-bottom: 24px;
+    font-size: 24px;
+    color: #333;
+}
+
+p {
+    font-size: 10px;
+    color: #8e8e8e;
+}
+
+a {
+    color: inherit;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn {
+    padding: 12px;
+    background-color: #1e88e5;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+
+.btn:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
+}
+
+.btn.selected {
+    box-shadow: inset 0 0 0 2px #424242, 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.next-button {
+    margin-top: 5px;
+    padding: 7px 10px;
+    background-color: transparent;
+    color: #43a047;
+    border: 2px solid #43a047;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.next-button:hover {
+    background-color: #43a047;
+    color:#ffffff;
+}
+
+.correct {
+    background-color: #28a745;
+    color: #ffffff;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.correct:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
+}
+
+.correct.selected:hover {
+    box-shadow: inset 0 0 0 2px #424242, 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
+}
+
+.wrong {
+    background-color: #dc3545;
+    color: #ffffff;
+    transition: background-color 0.3s ease,transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wrong:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
+}
+
+.wrong.selected:hover {
+    box-shadow: inset 0 0 0 2px #424242, 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
+}
+
+.score {
+    font-size: 15px;
+    padding: 10px;
+    color: #8e8e8e;
+}
