@@ -173,6 +173,8 @@ const abbreviations = [
 ];
 
 
+// Define your abbreviations array here if you haven't already
+
 const questionContainer = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
@@ -182,6 +184,7 @@ const scoreElement = document.getElementById('score'); // Reference to score ele
 let currentQuestion = {};
 let correctAnswer = '';
 let score = 0; // Initialize score counter
+let totalQuestions = 0; // Initialize total questions counter
 
 nextButton.addEventListener('click', setNextQuestion);
 
@@ -239,16 +242,21 @@ function selectAnswer(e) {
         button.disabled = true; // Disable buttons after selection
     });
 
-    if (correct) {
-        incrementScore(); // Increment score if answer is correct
-    }
+    incrementScore(correct); // Call incrementScore with correct parameter
 
     nextButton.classList.remove('hide');
 }
 
-function incrementScore() {
-    score++; // Increment score counter
-    scoreElement.textContent = `Score: ${score}`; // Update score display in HTML
+function incrementScore(correct) {
+    totalQuestions++; // Increment total questions counter
+    if (correct) {
+        score++; // Increment score if answer is correct
+    }
+    updateScoreDisplay();
+}
+
+function updateScoreDisplay() {
+    scoreElement.textContent = `Score: ${score} / ${totalQuestions}`;
 }
 
 function setStatusClass(element, correct) {
@@ -265,4 +273,4 @@ function clearStatusClass(element) {
     element.classList.remove('wrong');
 }
 
-setNextQuestion();
+setNextQuestion(); // Start the quiz
