@@ -173,18 +173,18 @@ const abbreviations = [
 ];
 
 
-// Define your abbreviations array here if you haven't already
 
 const questionContainer = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
 const nextButton = document.getElementById('next-button');
-const scoreElement = document.getElementById('score'); // Reference to score element in HTML
+const scoreElement = document.getElementById('score');
 
 let currentQuestion = {};
 let correctAnswer = '';
-let score = 0; // Initialize score counter
-let totalQuestions = 0; // Initialize total questions counter
+let score = 0;
+let totalQuestions = 0;
+let askedQuestions = []; // Array to store indices of asked questions
 
 nextButton.addEventListener('click', setNextQuestion);
 
@@ -194,7 +194,15 @@ function setNextQuestion() {
 }
 
 function showQuestion() {
-    const randomIndex = Math.floor(Math.random() * abbreviations.length);
+    let randomIndex;
+
+    // Ensure unique question
+    do {
+        randomIndex = Math.floor(Math.random() * abbreviations.length);
+    } while (askedQuestions.includes(randomIndex));
+
+    askedQuestions.push(randomIndex); // Add index to asked questions
+
     currentQuestion = abbreviations[randomIndex];
     correctAnswer = currentQuestion.meaning;
 
@@ -215,6 +223,28 @@ function showQuestion() {
 
 function generateRandomAnswers() {
     const answers = [correctAnswer];
+    const correctAbbreviation = currentQuestion.abbreviation.toUpperCase();
+
+    let filteredAbbreviations = abbreviations.filter(entry => {
+        const abbreviation = entry.abbreviation.toUpperCase();
+        return (
+            abbreviation.includes(correctAbbreviation) ||
+            abbreviation.charAt(0) === correctAbbreviation.charAt(0)
+        );
+    });
+
+    filteredAbbreviations = filteredAbbreviations.filter(entry => entry.meaning !== correctAnswer);
+    filteredAbbreviations.sort(() => Math.random() - 0.5);
+
+    let count = 0;
+    while (answers.length < 4 && count < 2 && count < filteredAbbreviations.length) {
+        const answer = filteredAbbreviations[count].meaning;
+        if (!answers.includes(answer)) {
+            answers.push(answer);
+        }
+        count++;
+    }
+
     while (answers.length < 4) {
         const randomIndex = Math.floor(Math.random() * abbreviations.length);
         const randomAnswer = abbreviations[randomIndex].meaning;
@@ -222,6 +252,7 @@ function generateRandomAnswers() {
             answers.push(randomAnswer);
         }
     }
+
     return answers.sort(() => Math.random() - 0.5);
 }
 
@@ -231,26 +262,31 @@ function resetState() {
         answerButtonsElement.removeChild(answerButtonsElement.firstChild);
     }
     clearStatusClass(document.body);
+    if (totalQuestions >= abbreviations.length) {
+        // Reset askedQuestions array when all questions have been asked
+        askedQuestions = [];
+        totalQuestions = 0;
+        score = 0;
+    }
 }
 
 function selectAnswer(e) {
     const selectedButton = e.target;
     const correct = selectedButton.dataset.correct === 'true';
-    selectedButton.classList.add('selected'); // Add selected class to the clicked button
+    selectedButton.classList.add('selected');
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct === 'true');
-        button.disabled = true; // Disable buttons after selection
+        button.disabled = true;
     });
 
-    incrementScore(correct); // Call incrementScore with correct parameter
-
+    incrementScore(correct);
     nextButton.classList.remove('hide');
 }
 
 function incrementScore(correct) {
-    totalQuestions++; // Increment total questions counter
+    totalQuestions++;
     if (correct) {
-        score++; // Increment score if answer is correct
+        score++;
     }
     updateScoreDisplay();
 }
@@ -273,4 +309,4 @@ function clearStatusClass(element) {
     element.classList.remove('wrong');
 }
 
-setNextQuestion(); // Start the quiz
+setNextQuestion();
