@@ -214,8 +214,7 @@ const abbreviations = [
 { meaning: "Temporary or temporarily", abbreviation: "TEMPO" },
 { meaning: "Terminal aerodrome forecast", abbreviation: "TAF" },
 { meaning: "Thunderstorm", abbreviation: "TS" },
-{ meaning: "Till (followed by time by which weather change is forecast to end)", abbreviation: "TL" },
-{ meaning: "Tornado", abbreviation: "plusFC" },
+{ meaning: "Tornado", abbreviation: "+FC" },
 { meaning: "Towering Cumulus", abbreviation: "TCU" },
 { meaning: "Tropical cyclone", abbreviation: "TC" },
 { meaning: "Tropopause", abbreviation: "TROP" },
@@ -243,7 +242,6 @@ const abbreviations = [
 { meaning: "Wind shear", abbreviation: "WS" },
 { meaning: "Wind speed", abbreviation: "WSPD" },
 { meaning: "Within", abbreviation: "WI" },
-{ meaning: "without human editing", abbreviation: "AUTO" },
 { meaning: "World Area Forecast Centre", abbreviation: "WAFC" }
     
 ];
